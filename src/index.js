@@ -10,3 +10,8 @@ render (
     <Router history={browserHistory} routes={routes} />,
     document.getElementById('app')
 );
+
+// export default connect(
+//     mapStateToProps, // specifies the state you want to expose to the component
+//     mapDispatchToProps // specifies the actions you want to expose
+// )(AuthorPage);
