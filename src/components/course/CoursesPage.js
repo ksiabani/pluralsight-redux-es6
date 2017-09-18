@@ -1,9 +1,12 @@
+// Container component
+
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as courseActions from '../../actions/courseActions';
 
 class CoursesPage extends React.Component {
+    // 1. Constructor will initialize state and call bind functions
     constructor(props, context) {
         super(props, context);
 
@@ -15,6 +18,7 @@ class CoursesPage extends React.Component {
         this.onClickSave = this.onClickSave.bind(this);
     }
 
+    // 2. Child functions
     onTitleChange(event) {
         const course = this.state.course;
         course.title = event.target.value;
@@ -30,6 +34,7 @@ class CoursesPage extends React.Component {
         return <div key={index}>{course.title}</div>;
     }
 
+    // 3. Render function, should call a child component
     render() {
         return (
             <div>
@@ -43,11 +48,14 @@ class CoursesPage extends React.Component {
     }
 }
 
+// 4. PropTypes
 CoursesPage.propTypes = {
     courses: PropTypes.array.isRequired,
     actions: PropTypes.object.isRequired
 };
 
+
+// 5. Redux connect
 function mapStateToProps(state, ownProps) {
     return {
         courses: state.courses // this comes from root reducer reducers/index.js line 5
@@ -57,13 +65,12 @@ function mapStateToProps(state, ownProps) {
 function mapDispatchToProps(dispatch) {
     return {
         actions: bindActionCreators(courseActions, dispatch)
-    }
+    };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CoursesPage);
+export default connect(
+    mapStateToProps,    // specifies the state you want to expose to the component
+    mapDispatchToProps  // specifies the actions you want to expose
+)(CoursesPage);
 
 
-// export default connect(
-//     mapStateToProps, // specifies the state you want to expose to the component
-//     mapDispatchToProps // specifies the actions you want to expose
-// )(AuthorPage);
